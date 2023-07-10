@@ -44,6 +44,7 @@ export const createProduct = async (
   const {
     title,
     image,
+    additionalImage,
     price,
     product_details,
     category,
@@ -55,12 +56,11 @@ export const createProduct = async (
     heel_height,
     heel_type,
     sale,
-    isLogin,
-    quantity,
   } = req.body;
   const productInfo = new Product({
     title: title,
     image: image,
+    additionalImage: additionalImage,
     price: price,
     product_details: product_details,
     category: category,
@@ -72,8 +72,6 @@ export const createProduct = async (
     heel_height: heel_height,
     heel_type: heel_type,
     sale: sale,
-    isLogin: isLogin,
-    quantity: quantity,
   });
   try {
     const product = await createProductService(productInfo);
