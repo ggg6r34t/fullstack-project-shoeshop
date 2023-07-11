@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 import {
   getAllProductsService,
-  getAllProductByIdService,
+  getProductByIdService,
   createProductService,
   updateProductByIdService,
   deleteProductByIdService,
@@ -29,7 +29,7 @@ export const getProductById = async (
 ) => {
   try {
     const productId = req.params.id;
-    const product = await getAllProductByIdService(productId);
+    const product = await getProductByIdService(productId);
     res.status(200).json(product);
   } catch (error) {
     next(error);

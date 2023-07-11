@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import Order from "../models/Order";
-import OrderServices from "../services/orders";
+import {
+  createOrderService,
+  getOrderByUserIdService,
+} from "../services/orders";
 
 export const createOrder = async (
   req: Request,
@@ -12,7 +15,22 @@ export const createOrder = async (
       userId: req.params.userId,
       productList: req.body,
     });
-    const order = await OrderServices.createOrderService(newOrder);
+    const order = await createOrderService(newOrder);
+    // response to frontend
+    res.status(201).json(order);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getOrderByUserId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const orderId = req.params.id;
+    const order = await getOrderByUserIdService(orderId);
     // response to frontend
     res.status(201).json(order);
   } catch (error) {
