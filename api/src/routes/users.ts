@@ -1,15 +1,18 @@
 import { Router } from "express";
+import passport from "passport";
 
-import { createUser } from "../controllers/users";
+import { createUser, updateUserInfo, userLogin } from "../controllers/users";
 
 const router = Router();
 
-// create account
+// create account or register
 router.post("/", createUser);
 
+// user login
+router.post("/login", userLogin);
+
 // update account information after successful login
-// router.put("/:userId", updateInformation)
-// passport.authenticate("jwt", {session: false})
-// updateUser
+router.put("/:userId", updateUserInfo);
+passport.authenticate("jwt", { session: false });
 
 export default router;

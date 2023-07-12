@@ -3,7 +3,10 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 
 import User from "../models/User";
-import { createUserService } from "../services/users";
+import {
+  createUserService,
+  updateUserInfoByIdService,
+} from "../services/users";
 import { findUserByEmailService } from "../services/users";
 
 dotenv.config();
@@ -51,6 +54,21 @@ export const userLogin = async (
       }
     );
     res.json({ token, userData });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUserInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.params.id;
+    const userInformation = req.body;
+    const user = await updateUserInfoByIdService(userId, userInformation);
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }

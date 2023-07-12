@@ -18,3 +18,16 @@ export const findUserByEmailService = async (
   }
   return user;
 };
+
+export const updateUserInfoByIdService = async (
+  userId: string,
+  newUserInformation: UserDocument
+): Promise<UserDocument | undefined | null> => {
+  const user = await User.findByIdAndUpdate(userId, newUserInformation, {
+    new: true,
+  });
+  if (!user) {
+    throw new NotFoundError(`Cannot find any user with the ID ${userId}.`);
+  }
+  return user;
+};
