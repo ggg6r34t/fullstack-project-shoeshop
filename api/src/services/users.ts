@@ -9,8 +9,8 @@ export const createUserService = async (
 
 export const findUserByEmailService = async (
   userEmail: string
-): Promise<UserDocument | undefined | null> => {
-  const user = await User.findById(userEmail);
+): Promise<UserDocument> => {
+  const user = await User.findOne({ email: userEmail });
   if (!user) {
     throw new NotFoundError(
       `Cannot find any user with the email ${userEmail}.`
@@ -21,13 +21,13 @@ export const findUserByEmailService = async (
 
 export const updateUserInfoByIdService = async (
   userId: string,
-  newUserInformation: UserDocument
-): Promise<UserDocument | undefined | null> => {
+  newUserInformation: Partial<UserDocument>
+): Promise<UserDocument> => {
   const user = await User.findByIdAndUpdate(userId, newUserInformation, {
     new: true,
   });
   if (!user) {
-    throw new NotFoundError(`Cannot find any user with the ID ${userId}.`);
+    throw new NotFoundError(`User ${userId} not found`);
   }
   return user;
 };

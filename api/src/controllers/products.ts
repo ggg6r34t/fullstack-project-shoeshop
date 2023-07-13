@@ -9,33 +9,7 @@ import {
 } from "../services/products";
 import Product from "../models/Product";
 
-export const getAllProducts = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const product = await getAllProductsService();
-    res.status(200).json(product);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getProductById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const productId = req.params.id;
-    const product = await getProductByIdService(productId);
-    res.status(200).json(product);
-  } catch (error) {
-    next(error);
-  }
-};
-
+// create product
 export const createProduct = async (
   req: Request,
   res: Response,
@@ -81,6 +55,36 @@ export const createProduct = async (
   }
 };
 
+// get all products
+export const getAllProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const product = await getAllProductsService();
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// get product by id
+export const getProductById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const productId = req.params.id;
+    const product = await getProductByIdService(productId);
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// update product by id
 export const updateProductById = async (
   req: Request,
   res: Response,
@@ -91,20 +95,6 @@ export const updateProductById = async (
     const newProductInfo = req.body;
     const product = await updateProductByIdService(productId, newProductInfo);
     res.status(200).json(product);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const deleteProductById = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const productId = req.params.id;
-    const product = await deleteProductByIdService(productId);
-    res.status(204).json(product);
   } catch (error) {
     next(error);
   }

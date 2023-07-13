@@ -12,7 +12,10 @@ router.post("/", createUser);
 router.post("/login", userLogin);
 
 // update account information after successful login
-router.put("/:userId", updateUserInfo);
-passport.authenticate("jwt", { session: false });
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  updateUserInfo
+);
 
 export default router;

@@ -17,7 +17,7 @@ passport.use(jwtStrategy);
 // routes
 app.use("/products", productRouter);
 app.use("/users", userRouter);
-app.use("order", orderRouter);
+app.use("/orders", orderRouter);
 
 // error handler
 app.use(apiErrorHandler);
