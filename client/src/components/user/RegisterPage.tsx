@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import styled from "styled-components";
 
-import { theme } from "../../theme/theme";
+import { theme } from "../theme/theme";
 
 const StyledTextField = styled(TextField)`
   & .MuiFormLabel-root {
