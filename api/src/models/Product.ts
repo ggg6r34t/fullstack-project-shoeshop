@@ -1,24 +1,5 @@
 import mongoose, { Document } from "mongoose";
 
-// Product: Shoes
-
-// item number:
-// title:
-// image:
-// price:
-// product details:
-// category: ankle boots, oxford sheos, loafers, monks, derbies, sneakers, boat shoes, mules, sandals
-// sizes: 39, 40, 41, 42, 43, 44, 45, 46, 47
-// material: Leather, Suede, Patent Leather, Canvas, Mesh, Synthetic, Fabric, Rubber
-// color:
-// insole:
-// outsole:
-// heel height:
-// heel type:
-// sale: (yes or no)
-// isLogin: boolean;
-// quantity: number;
-
 // type from TypeScript and Mongoose (Document)
 export type ProductDocument = Document & {
   title: string;
