@@ -4,28 +4,12 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { Product } from "../../type/types";
 
 type ProductDetailsState = {
-  productDetails: Product;
+  productDetails: null | Product;
   isLoading: boolean;
 };
 
 const initialState: ProductDetailsState = {
-  productDetails: {
-    _id: "",
-    title: "",
-    image: "",
-    additionalImage: [""],
-    price: 0,
-    product_details: "",
-    category: "",
-    sizes: [""],
-    material: "",
-    color: "",
-    insole: "",
-    outsole: "",
-    heel_height: "",
-    heel_type: "",
-    sale: false,
-  },
+  productDetails: null,
   isLoading: true,
 };
 

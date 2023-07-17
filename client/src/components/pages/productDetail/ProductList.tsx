@@ -1,10 +1,11 @@
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Container, CircularProgress, Grid } from "@mui/material";
+import { Box, Container, CircularProgress, Typography } from "@mui/material";
 // import styled from "styled-components";
 
 import { AppDispatch, RootState } from "../../../redux/store";
-import { fetchProductData } from "../../../redux/thunk/products";
+import { fetchProductDetails } from "../../../redux/thunk/products";
 import ProductItem from "./ProductItem";
 
 function ProductDetailsList() {
@@ -15,11 +16,22 @@ function ProductDetailsList() {
 
   const fetchDispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    fetchDispatch(fetchProductData());
-  }, [fetchDispatch]);
+  const param = useParams();
+  const productId = param.id as string;
 
-  if (isLoading) {
+  useEffect(() => {
+    fetchDispatch(fetchProductDetails(productId));
+  }, [fetchDispatch, productId, param]);
+
+  if (!productDetail) {
+    return (
+      <Box component="div">
+        <Typography variant="h1" fontSize="4rem">
+          no data
+        </Typography>
+      </Box>
+    );
+  } else if (isLoading) {
     return (
       <Container sx={{ mt: 15, minHeight: 950 }}>
         <Box

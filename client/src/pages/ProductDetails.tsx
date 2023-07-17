@@ -1,7 +1,7 @@
-import ProductDetailsList from "../components/pages/productDetail/ProductDetailsList";
+import ProductList from "../components/pages/productDetail/ProductList";
 
 function ProductDetails() {
-  return <ProductDetailsList />;
+  return <ProductList />;
 }
 
 export default ProductDetails;
