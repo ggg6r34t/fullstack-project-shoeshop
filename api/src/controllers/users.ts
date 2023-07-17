@@ -20,21 +20,23 @@ export const createUser = async (
   next: NextFunction
 ) => {
   // destructing request.body
-  const { email, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   try {
     // hashed password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const userInformation = new User({
+    const update = new User({
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
     });
 
     // response to frontend
-    const newUser = await createUserService(userInformation);
-    res.status(200).json(newUser);
+    const newUser = await createUserService(update);
+    res.status(200).json({ message: `Account ${newUser} created.` });
   } catch (error) {
     next(error);
   }
@@ -55,6 +57,8 @@ export const userLogin = async (
     if (!userData) {
       res.status(403).json({ message: "Can't find user with that email." });
       return;
+    } else {
+      res.status(200).json({ message: "Login successful!" });
     }
     // verify user password
     const hashedPassword = userData.password;
@@ -88,9 +92,14 @@ export const updateUserInfo = async (
 ) => {
   try {
     const userId = req.params.id;
-    const userInformation = req.body;
-    const user = await updateUserInfoByIdService(userId, userInformation);
-    res.status(200).json(user);
+    const user = req.body.user;
+    const update = req.body;
+
+    // if user updates password, check that the password is different fro the one in the db
+    // and if its different we need to add the new password and ensure that the new password is hashed.
+
+    const updatedUser = await updateUserInfoByIdService(userId, update);
+    res.status(200).json(updatedUser);
   } catch (error) {
     next(error);
   }

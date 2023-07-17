@@ -6,7 +6,7 @@ import { createUser, updateUserInfo, userLogin } from "../controllers/users";
 const router = Router();
 
 // create account or register
-router.post("/", createUser);
+router.post("/register", createUser);
 
 // user login
 router.post("/login", userLogin);
