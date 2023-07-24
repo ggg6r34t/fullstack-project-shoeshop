@@ -3,11 +3,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Order } from "../../type/types";
 
 type OrderState = {
-  order: Order[];
+  orders: Order[];
 };
 
 const initialState: OrderState = {
-  order: [],
+  orders: [],
 };
 
 const orderSlice = createSlice({
@@ -15,7 +15,7 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     setOrder: (state, action: PayloadAction<Order[]>) => {
-      state.order = action.payload;
+      state.orders = action.payload;
     },
   },
 });

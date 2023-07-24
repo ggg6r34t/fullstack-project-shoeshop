@@ -2,8 +2,13 @@ import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import banner from "../../assets/background-faq_1200x.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import ProductOrderList from "../order/ProductOrderList";
 
 function UserInfoPage() {
+  const orderList = useSelector((state: RootState) => state.order.orders);
+
   return (
     <div>
       <Container
@@ -116,16 +121,24 @@ function UserInfoPage() {
                       Orders
                     </Typography>
                   </Box>
-                  <Box component="div">
-                    <Typography
-                      color="#044606"
-                      sx={{
-                        mt: "16px",
-                      }}
-                    >
-                      You haven't placed any order yet.
-                    </Typography>
-                  </Box>
+                  {orderList.length === 0 ? (
+                    <Box component="div">
+                      <Typography
+                        color="#044606"
+                        sx={{
+                          mt: "16px",
+                        }}
+                      >
+                        You haven't placed any order yet.
+                      </Typography>
+                    </Box>
+                  ) : (
+                    orderList.map((orderItem) => (
+                      <Box component="div">
+                        <ProductOrderList orderItem={orderItem} />
+                      </Box>
+                    ))
+                  )}
                 </Stack>
               </Paper>
               <Paper

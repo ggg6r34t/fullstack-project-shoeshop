@@ -39,7 +39,7 @@ export type CartProduct = Product & {
   selectedSize: string | null;
 };
 
-export type ProductOrder = Product & {
+export type ProductOrder = CartProduct & {
   quantity: number;
 };
 

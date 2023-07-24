@@ -8,7 +8,7 @@ import ProductDetailsListPage from "./pages/ProductDetails";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import UserInfoPage from "./pages/UserAccount";
-import OrderPage from "./components/order/OrderPage";
+import CheckoutPage from "./components/order/CheckoutPage";
 import UserDetails from "./components/user/UserDetails";
 
 function AppRoutes() {
@@ -31,7 +31,7 @@ function AppRoutes() {
       <Route path="/account/register" element={<RegisterPage />} />
       <Route path="/account" element={<UserInfoPage />} />
       <Route path="/account/details" element={<UserDetails />} />
-      <Route path="/order" element={<OrderPage />} />
+      <Route path="/order" element={<CheckoutPage />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
