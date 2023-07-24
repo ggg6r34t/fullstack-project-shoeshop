@@ -2,12 +2,26 @@ import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import banner from "../../assets/background-faq_1200x.png";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import ProductOrderList from "../order/ProductOrderList";
+import { useEffect } from "react";
+
+import { fetchOder } from "../../redux/thunk/orders";
 
 function UserInfoPage() {
   const orderList = useSelector((state: RootState) => state.order.orders);
+  const userDetail = useSelector(
+    (state: RootState) => state.users.userInformation
+  );
+
+  const fetchDispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (userDetail) {
+      fetchDispatch(fetchOder(userDetail._id));
+    }
+  }, [fetchDispatch, userDetail]);
 
   return (
     <div>

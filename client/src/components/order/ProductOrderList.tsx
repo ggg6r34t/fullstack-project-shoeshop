@@ -15,6 +15,7 @@ type Prop = {
 };
 
 function ProductOrderList({ orderItem }: Prop) {
+  console.log(orderItem.proudctList);
   return (
     <div>
       <Paper
