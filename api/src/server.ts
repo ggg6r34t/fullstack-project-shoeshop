@@ -7,7 +7,7 @@ import app from "./app";
 dotenv.config();
 
 // Connects to the database via the URI
-const port = 8000;
+const port = process.env.NODE_ENV === "production" ? process.env.PORT : 8000;
 
 const options = {
   useNewUrlParser: true,
