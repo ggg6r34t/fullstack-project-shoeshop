@@ -22,7 +22,8 @@
     "typescript": "^5.1.6"
   },
   "scripts": {
-    "start": "nodemon --watch \"src/*\" --ext \"ts,json\" --ignore \"src//.spec.ts\" --exec \"ts-node src/server.ts\""
+    "start:dev": "nodemon --watch \"src/*\" --ext \"ts,json\" --ignore \"src//.spec.ts\" --exec \"ts-node src/server.ts\"",
+    "start": "ts-node src/server.ts"
   },
   "engines": {
     "node": ">=14.20.1"
