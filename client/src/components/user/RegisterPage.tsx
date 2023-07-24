@@ -193,6 +193,7 @@ function RegisterPage() {
           <FormControl
             margin="normal"
             sx={{
+              minHeight: "110px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -208,6 +209,12 @@ function RegisterPage() {
                   minWidth: "125px",
                   borderRadius: "65px",
                   mt: "40px",
+                  "&:hover": {
+                    backgroundColor: "#044606",
+                    border: "solid",
+                    borderSize: "1px",
+                    borderColor: "#fffef1",
+                  },
                 }}
               >
                 <Typography

@@ -1,9 +1,105 @@
-import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
-
-import banner from "../../assets/background-faq_1200x.png";
+import { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import styled from "styled-components";
 
-function UserInfoPage() {
+import { RootState } from "../../redux/store";
+import { userActions } from "../../redux/slices/user";
+import banner from "../../assets/background-faq_1200x.png";
+
+const StyledTextField = styled(TextField)`
+  & .MuiInput-input {
+    color: #044606;
+    width: 40px;
+  }
+  & .MuiInput-root:before {
+    border: none;
+    border-color: transparent !important;
+  }
+  & .MuiInput-root:after {
+    border: none;
+    border-color: transparent !important;
+  }
+`;
+
+const StyledButton = styled(Button)`
+  &&:hover {
+    color: #044606c7 !important;
+    background-color: transparent;
+    border: solid;
+    border-size: 1px;
+    border-radius: 25px;
+  }
+`;
+
+function UserDetails() {
+  const dispatch = useDispatch();
+  const userDetail = useSelector(
+    (state: RootState) => state.users.userInformation
+  );
+
+  const [formData, setFormData] = useState({
+    firstName: userDetail?.firstName,
+    lastName: userDetail?.lastName,
+  });
+
+  const [readOnly, setReadOnly] = useState(true);
+
+  function setUserFirstName(event: React.ChangeEvent<HTMLInputElement>) {
+    setFormData({ ...formData, firstName: event.target.value });
+  }
+
+  function setUserLastName(event: React.ChangeEvent<HTMLInputElement>) {
+    setFormData({ ...formData, lastName: event.target.value });
+  }
+
+  function onEditHandler() {
+    setReadOnly(false);
+  }
+
+  function onDeleteHandler() {
+    setReadOnly(false);
+    setFormData({ firstName: "", lastName: "" });
+  }
+
+  function onSubmitHandler() {
+    const token = localStorage.getItem("userToken");
+    const url = `http://localhost:8000/account/${userDetail?._id}`;
+
+    axios
+      .put(url, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res, "new data");
+        dispatch(userActions.setUserData(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          alert("Please log in to change your information.");
+        }
+        return;
+      });
+    setReadOnly(true);
+  }
+  if (!userDetail) {
+    return <div> no data...</div>;
+  }
+
   return (
     <div>
       <Container
@@ -100,6 +196,7 @@ function UserInfoPage() {
                 sx={{
                   display: "flex",
                   maxWidth: "80vw",
+                  height: "360px",
                   padding: "48px 48px",
                 }}
               >
@@ -113,19 +210,80 @@ function UserInfoPage() {
                       fontSize="4rem"
                       textTransform="lowercase"
                     >
-                      Orders
+                      my details
                     </Typography>
                   </Box>
-                  <Box component="div">
-                    <Typography
-                      color="#044606"
-                      sx={{
-                        mt: "16px",
-                      }}
-                    >
-                      You haven't placed any order yet.
-                    </Typography>
-                  </Box>
+                  <Paper
+                    component="div"
+                    sx={{
+                      width: "563px",
+                      backgroundColor: "#f3f3f3",
+                      padding: "16px",
+                      marginTop: "35px",
+                    }}
+                  >
+                    <Box component="div" m={2}>
+                      <Typography
+                        color="#044606"
+                        fontFamily="Noto Serif"
+                        fontSize="1rem"
+                        textTransform="lowercase"
+                      >
+                        by default
+                      </Typography>
+                      <Stack direction="row">
+                        <StyledTextField
+                          id="standard-basic"
+                          variant="standard"
+                          value={formData.firstName}
+                          onChange={setUserFirstName}
+                          InputProps={{ readOnly: readOnly }}
+                        />
+                        <StyledTextField
+                          id="standard-basic"
+                          variant="standard"
+                          value={formData.lastName}
+                          onChange={setUserLastName}
+                          InputProps={{ readOnly: readOnly }}
+                        />
+                      </Stack>
+                    </Box>
+                    <Stack direction="row" sx={{ maxHeight: "36px" }}>
+                      <StyledButton variant="text" onClick={onEditHandler}>
+                        <Typography
+                          color="#044606"
+                          fontFamily="Noto Serif"
+                          fontSize="1rem"
+                          textTransform="lowercase"
+                        >
+                          edit
+                        </Typography>
+                      </StyledButton>
+                      {readOnly === false ? (
+                        <StyledButton variant="text" onClick={onSubmitHandler}>
+                          <Typography
+                            color="#044606"
+                            fontFamily="Noto Serif"
+                            fontSize="1rem"
+                            textTransform="lowercase"
+                          >
+                            save
+                          </Typography>
+                        </StyledButton>
+                      ) : (
+                        <StyledButton variant="text" onClick={onDeleteHandler}>
+                          <Typography
+                            color="#044606"
+                            fontFamily="Noto Serif"
+                            fontSize="1rem"
+                            textTransform="lowercase"
+                          >
+                            delete
+                          </Typography>
+                        </StyledButton>
+                      )}
+                    </Stack>
+                  </Paper>
                 </Stack>
               </Paper>
               <Paper
@@ -202,4 +360,4 @@ function UserInfoPage() {
   );
 }
 
-export default UserInfoPage;
+export default UserDetails;

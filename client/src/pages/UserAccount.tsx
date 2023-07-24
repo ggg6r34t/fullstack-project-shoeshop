@@ -1,4 +1,4 @@
-import UserInfoPage from "../components/pages/user/UserInfoPage";
+import UserInfoPage from "../components/user/UserInfoPage";
 
 function UserAccount() {
   return <UserInfoPage />;

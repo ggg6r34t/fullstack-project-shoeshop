@@ -13,11 +13,19 @@ export function fetchProductData() {
 }
 
 export function fetchProductDetails(productId: string) {
-  const productUrl = `http://localhost:8000/products/${productId}`;
+  const productUrl = `http://localhost:8000/products/products/${productId}`;
   return async (dispact: AppDispatch) => {
     const response = await fetch(productUrl);
     const productDetailData = await response.json();
-    console.log(productDetailData);
     dispact(productDetailsActions.getProductDetails(productDetailData));
+  };
+}
+
+export function fetchProductByCategory(category: string) {
+  const productUrl = `http://localhost:8000/products/products/category/${category}`;
+  return async (dispact: AppDispatch) => {
+    const response = await fetch(productUrl);
+    const productByCategoryData = await response.json();
+    dispact(productActions.getProductData(productByCategoryData));
   };
 }

@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import styled, { ThemeProvider } from "styled-components";
 
-import { theme } from "../../theme/theme";
-import { IsLoggedInActions } from "../../../redux/slices/isLoggedIn";
+import { theme } from "../theme/theme";
 import { useDispatch } from "react-redux";
+import { userActions } from "../../redux/slices/user";
 
 const StyledTextField = styled(TextField)`
   & .MuiFormLabel-root {
@@ -65,20 +65,25 @@ function LoginPage() {
     axios
       .post("http://localhost:8000/account/login", userInput)
       .then((res) => {
-        // handle successful login
-        const token = res.data.token;
-        // display the success message to the user
-        const message = res.data.message;
-        console.log(message);
+        if (res.status === 200) {
+          // store the toekn securely (e.g., in local storage or cookie)
+          const userToken = res.data.token;
+          localStorage.setItem("userToken", userToken);
 
-        if (message === "Login successful!") {
-          dispatch(IsLoggedInActions.userLogin(true));
+          // save userData to redux
+          dispatch(userActions.setUserData(res.data.userData));
+
+          // set user login state
+          dispatch(userActions.userLogin(true));
+
+          // display the success message to the user
+          const message = res.data.message;
+          console.log(message);
+
+          // redirect to user account
+          navigate("/account");
         }
-        // store the toekn securely (e.g., in local storage or cookie)
-        localStorage.setItem("token", token);
-
-        // redirect to user account
-        navigate("/account");
+        console.log(res.data.userData);
       })
       .catch((err) => {
         // handle login error
@@ -160,6 +165,7 @@ function LoginPage() {
             <FormControl
               margin="normal"
               sx={{
+                minHeight: "110px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -175,6 +181,12 @@ function LoginPage() {
                     minWidth: "125px",
                     borderRadius: "65px",
                     marginTop: "40px",
+                    "&:hover": {
+                      backgroundColor: "#044606",
+                      border: "solid",
+                      borderSize: "1px",
+                      borderColor: "#fffef1",
+                    },
                   }}
                 >
                   <Typography

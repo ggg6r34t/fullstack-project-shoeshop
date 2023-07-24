@@ -1,20 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import productReducer from "./slices/products";
-// import cartReducer from "./slices/cart";
-import productDetailsReducer from "./slices/productDetail";
-import themeReducer from "./slices/themeMode";
-import textColorReducer from "./slices/textColor";
-import IsLoggedInReducer from "./slices/isLoggedIn";
+import cartReducer from "./slices/cart";
+import productDetailReducer from "./slices/productDetail";
+import userReducer from "./slices/user";
+import drawerReducer from "./slices/toggleDrawer";
+import orderReducer from "./slices/order";
 
 const store = configureStore({
   reducer: {
-    userLogin: IsLoggedInReducer,
-    // cart: cartReducer,
     products: productReducer,
-    productDetails: productDetailsReducer,
-    color: textColorReducer,
-    themes: themeReducer,
+    productDetail: productDetailReducer,
+    drawer: drawerReducer,
+    users: userReducer,
+    cart: cartReducer,
+    order: orderReducer,
   },
 });
 

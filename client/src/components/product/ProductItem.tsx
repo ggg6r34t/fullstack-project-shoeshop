@@ -1,124 +1,148 @@
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import CardActions from "@mui/material/CardActions";
-import Stack from "@mui/material/Stack";
-import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Box, CardContent, Grid, Typography } from "@mui/material";
 
-import { productActions } from "../../../redux/slices/products";
-// import { cartActions } from "../../../redux/slices/cart";
-import { Product } from "../../../type/types";
+import { cartActions } from "../../redux/slices/cart";
+import { Product } from "../../type/types";
 
 type Prop = {
   product: Product;
 };
 
 const AddToCartButton = styled(Button)`
-  border-radius: 0 !important;
+  font-weight: 500 !important;
+  background-color: #f3f3f3 !important;
+  border-radius: 50px !important;
   border-color: #3d3c42 !important;
-  color: #3d3c42 !important;
+
+  position: absolute;
+  top: -225px;
+  left: 175px;
+  visibility: hidden;
+  z-index: 70px;
   &&:hover {
-    color: #c92c6d;
-    background-color: transparent;
+    background-color: #f3f3f3;
+    border: 2px solid #044606;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+`;
+const CardContainer = styled(Box)`
+  position: relative;
+
+  &:hover ${AddToCartButton} {
+    visibility: visible;
   }
 `;
 
 export default function ProductItem({ product }: Prop) {
-  const favProducts = useSelector(
-    (state: RootState) => state.products.favProduct
-  );
+  const dispatch = useDispatch();
 
-  const functionDispatch = useDispatch();
-
-  function addToFavourite(favProd: Product) {
-    const favItemInList = favProducts.some(
-      (favItem) => favItem.title === favProd.title
-    );
-
-    const removeFavItemInList = favProducts.filter(
-      (removeFavItem) => removeFavItem.title !== favProd.title
-    );
-    functionDispatch(productActions.removeFavProduct(removeFavItemInList));
-
-    if (!favItemInList) {
-      functionDispatch(productActions.addFavProduct(favProd));
-    }
+  function addToCart(cartProd: Product) {
+    dispatch(cartActions.addCartProduct(cartProd));
+    dispatch(cartActions.getTotalQuantity());
   }
-
-  // function addToCart(cartProd: Product) {
-  //   functionDispatch(cartActions.addCartProduct(cartProd));
-  //   functionDispatch(cartActions.getTotalQuantity());
-  // }
 
   // #044606 - emerald green
   return (
-    <div>
-      <Card
-        elevation={0}
-        sx={{
-          backgroundColor: "#04460620",
-          height: "455px",
-          minWidth: 470,
-          borderRadius: 11,
-        }}
-      >
-        <CardActions disableSpacing>
-          <IconButton
-            sx={{ position: "relative", top: 55, left: 225 }}
-            aria-label="add to favorites"
-            onClick={() => addToFavourite(product)}
-          >
-            <FavoriteIcon
+    <Box
+      component="div"
+      sx={{
+        maxWidth: 600,
+        height: 596,
+        marginTop: "25px",
+        marginBottom: "25px",
+      }}
+    >
+      <CardContainer component="div" key={product._id}>
+        <Card elevation={0} sx={{ marginBottom: "20px" }}>
+          <Link to={`/products/${product._id}`}>
+            <Box
+              component="div"
               sx={{
-                color: favProducts.some(
-                  (favProd) => favProd.title === product.title
-                )
-                  ? "#000000" // black
-                  : "#eeeeee", // off-white
+                backgroundColor: "#0446060f",
+                borderRadius: "18px",
               }}
-            />
-          </IconButton>
-        </CardActions>
-        <Link to={`/products/${product._id}`}>
-          <CardMedia
-            component="img"
-            sx={{
-              height: 350,
-              width: 430,
-              backgroundRepeat: "no-repeat",
-              display: "block",
-              margin: "0 auto",
-            }}
-            image={
-              "https://www.melvin-hamilton.com/cdn/shop/products/457ccfff9ed2a7065774c4a92363f57042eaba77_Clive_20_122790_HD_8_1100x.png?v=1683115277"
-            }
-            title={product.title}
-          />
-        </Link>
-      </Card>
-
-      <Stack direction="row" spacing={3}>
-        <Typography gutterBottom variant="subtitle1">
-          {product.title}
-        </Typography>
-        <Typography gutterBottom variant="subtitle1">
-          {product.price} EUR
-        </Typography>
-      </Stack>
-
-      <AddToCartButton
-        sx={{ width: 275 }}
-        variant="outlined"
-        // onClick={() => addToCart(product)}
-      >
-        ADD TO CART
-      </AddToCartButton>
-    </div>
+            >
+              <CardMedia
+                component="img"
+                sx={{
+                  height: 405,
+                  width: 404,
+                  backgroundRepeat: "no-repeat",
+                  margin: "0 auto",
+                }}
+                image={product.image}
+                title={product.title}
+              />
+            </Box>
+          </Link>
+          <CardContent>
+            <Box component="div" sx={{ marginTop: "13px" }}>
+              <Grid container>
+                <Grid item xs={8} md={12}>
+                  <Typography
+                    variant="h5"
+                    component="div"
+                    color="#044606"
+                    fontSize="1.7rem"
+                    fontWeight="700"
+                    letterSpacing="0.06rem"
+                  >
+                    {product.title}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+            <Box component="div" sx={{ marginTop: "13px" }}>
+              <Grid container>
+                <Grid item xs={8} md={12}>
+                  <Typography
+                    variant="h4"
+                    color="#044606"
+                    fontSize="1.7rem"
+                    fontWeight="100"
+                    letterSpacing="0.1rem"
+                  >
+                    {product.price} €
+                  </Typography>
+                </Grid>
+                <Grid item xs={8} md={12}>
+                  <Typography
+                    variant="h4"
+                    color="#044606"
+                    fontFamily="sans-serif"
+                    fontSize="1.7rem"
+                    fontWeight="100"
+                    letterSpacing="0.1rem"
+                    marginTop="10px"
+                  >
+                    available in several sizes{/* {product.size} EUR */}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+          </CardContent>
+          <AddToCartButton
+            variant="outlined"
+            onClick={() => addToCart(product)}
+          >
+            <Typography
+              variant="h4"
+              color="#044606"
+              fontSize="1.2rem"
+              fontWeight="500"
+              textTransform="lowercase"
+            >
+              add to bag
+            </Typography>
+          </AddToCartButton>
+        </Card>
+      </CardContainer>
+    </Box>
   );
 }

@@ -1,3 +1,4 @@
+import { useLocation, Outlet } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import { theme } from "./components/theme/theme";
@@ -6,12 +7,16 @@ import Footer from "./components/layout/Footer";
 import AppRoutes from "./routes";
 
 function App() {
+  const location = useLocation();
+  const shouldRender = !["/order"].includes(location.pathname);
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <NavBar />
+        <Outlet />
+        {shouldRender && <NavBar />}
         <AppRoutes />
-        <Footer />
+        <Outlet />
+        {shouldRender && <Footer />}
       </ThemeProvider>
     </div>
   );
