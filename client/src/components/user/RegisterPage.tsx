@@ -12,6 +12,7 @@ import {
 import styled from "styled-components";
 
 import { theme } from "../theme/theme";
+import { BASE_URL } from "../../api/api";
 
 const StyledTextField = styled(TextField)`
   & .MuiFormLabel-root {
@@ -71,13 +72,11 @@ function RegisterPage() {
   function sendUserInformation() {
     // send an AJAX request to the backend API endpoint
     axios
-      .post("http://localhost:8000/account/register", userInput)
+      .post(`${BASE_URL}/account/register`, userInput)
       .then((res) => {
         // handle successful login
         const token = res.data.token;
-        // display the success message to the user
-        const message = res.data.message;
-        console.log(message);
+
         // store the toekn securely (e.g., in local storage or cookie)
         localStorage.setItem("token", token);
 

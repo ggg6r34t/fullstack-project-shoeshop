@@ -17,6 +17,7 @@ import styled from "styled-components";
 import { RootState } from "../../redux/store";
 import { userActions } from "../../redux/slices/user";
 import banner from "../../assets/background-faq_1200x.png";
+import { BASE_URL } from "../../api/api";
 
 const StyledTextField = styled(TextField)`
   & .MuiInput-input {
@@ -75,7 +76,7 @@ function UserDetails() {
 
   function onSubmitHandler() {
     const token = localStorage.getItem("userToken");
-    const url = `http://localhost:8000/account/${userDetail?._id}`;
+    const url = `${BASE_URL}/account/${userDetail?._id}`;
 
     axios
       .put(url, formData, {
@@ -85,7 +86,6 @@ function UserDetails() {
         },
       })
       .then((res) => {
-        console.log(res, "new data");
         dispatch(userActions.setUserData(res.data));
       })
       .catch((err) => {

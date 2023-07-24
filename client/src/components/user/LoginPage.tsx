@@ -14,6 +14,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "../theme/theme";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/slices/user";
+import { BASE_URL } from "../../api/api";
 
 const StyledTextField = styled(TextField)`
   & .MuiFormLabel-root {
@@ -63,7 +64,7 @@ function LoginPage() {
   function sendUserInformation() {
     // send an AJAX request to the backend API endpoint
     axios
-      .post("http://localhost:8000/account/login", userInput)
+      .post(`${BASE_URL}/account/login`, userInput)
       .then((res) => {
         if (res.status === 200) {
           // store the toekn securely (e.g., in local storage or cookie)
@@ -76,14 +77,9 @@ function LoginPage() {
           // set user login state
           dispatch(userActions.userLogin(true));
 
-          // display the success message to the user
-          const message = res.data.message;
-          console.log(message);
-
           // redirect to user account
           navigate("/account");
         }
-        console.log(res.data.userData);
       })
       .catch((err) => {
         // handle login error

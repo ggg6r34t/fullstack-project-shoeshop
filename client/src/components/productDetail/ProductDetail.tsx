@@ -43,7 +43,6 @@ export default function ProductItem() {
   const functionDispatch = useDispatch();
 
   const handleSizeSelect = (shoeId: string, size: string) => {
-    console.log({ shoeId, size });
     functionDispatch(cartActions.setSelectedSize({ shoeId, size }));
   };
 

@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   Box,
   Button,
@@ -23,8 +24,8 @@ import crest from "../../assets/family_crest.png";
 import { theme } from "../theme/theme";
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import { cartActions } from "../../redux/slices/cart";
+import { BASE_URL } from "../../api/api";
 
 const StyledTextField = styled(TextField)`
   & .MuiFormLabel-root {
@@ -144,7 +145,7 @@ function OrderPage() {
 
   function handleCheckout() {
     const token = localStorage.getItem("userToken");
-    const url = `http://localhost:8000/orders/${userDetail?._id}`;
+    const url = `${BASE_URL}/orders/${userDetail?._id}`;
 
     axios
       .post(
