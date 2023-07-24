@@ -11,7 +11,8 @@ export const findUserByEmailService = async (
   userEmail: string
 ): Promise<UserDocument> => {
   // using select query to avoid sending user password to the client
-  const user = await User.findOne({ email: userEmail }).select("-password");
+  // const user = await User.findOne({ email: userEmail }).select("-password");
+  const user = await User.findOne({ email: userEmail });
   if (!user) {
     throw new NotFoundError(
       `Cannot find any user with the email ${userEmail}.`
