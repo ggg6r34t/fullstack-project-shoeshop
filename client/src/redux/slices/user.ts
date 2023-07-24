@@ -7,10 +7,13 @@ type UserState = {
   isLogin: boolean;
 };
 
-const initialState: UserState = {
-  userInformation: null,
-  isLogin: false,
-};
+const storedUserState = localStorage.getItem("userState");
+const initialState: UserState = storedUserState
+  ? JSON.parse(storedUserState)
+  : {
+      userInformation: null,
+      isLogin: false,
+    };
 
 const userSlice = createSlice({
   name: "user",
@@ -18,9 +21,11 @@ const userSlice = createSlice({
   reducers: {
     setUserData: (state, action: PayloadAction<User>) => {
       state.userInformation = action.payload;
+      localStorage.setItem("userState", JSON.stringify(state));
     },
     userLogin: (state, action: PayloadAction<boolean>) => {
       state.isLogin = action.payload;
+      localStorage.setItem("userState", JSON.stringify(state));
     },
   },
 });
