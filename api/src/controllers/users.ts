@@ -27,7 +27,7 @@ export const createUser = async (
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const update = new User({
+    const newUser = new User({
       firstName,
       lastName,
       email,
@@ -35,8 +35,8 @@ export const createUser = async (
     });
 
     // response to frontend
-    const newUser = await createUserService(update);
-    res.status(200).json({ message: `Account ${newUser} created.` });
+    const createdUser = await createUserService(newUser);
+    res.status(200).json({ message: `Account ${createdUser} created.` });
   } catch (error) {
     next(error);
   }
@@ -52,14 +52,14 @@ export const userLogin = async (
 
   // response to frontend
   // find user by email
-  const userData = await findUserByEmailService(email);
+
   try {
+    const userData = await findUserByEmailService(email);
     if (!userData) {
       res.status(403).json({ message: "Can't find user with that email." });
       return;
-    } else {
-      res.status(200).json({ message: "Login successful!" });
     }
+
     // verify user password
     const hashedPassword = userData.password;
     const isCorrectPassword = await bcrypt.compare(password, hashedPassword);
@@ -71,7 +71,7 @@ export const userLogin = async (
     // token-based authentication
     const token = jwt.sign(
       {
-        email: req.body.email,
+        email: userData.email,
         _id: userData._id,
       },
       JWT_SECRET,

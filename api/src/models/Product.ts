@@ -1,5 +1,14 @@
 import mongoose, { Document } from "mongoose";
 
+type productInfo = {
+  material: string;
+  color: string;
+  insole: string;
+  outsole: string;
+  heel_height: string;
+  heel_type: string;
+};
+
 // type from TypeScript and Mongoose (Document)
 export type ProductDocument = Document & {
   title: string;
@@ -9,12 +18,7 @@ export type ProductDocument = Document & {
   product_details: string;
   category: string;
   sizes: string[];
-  material: string;
-  color: string;
-  insole: string;
-  outsole: string;
-  heel_height: string;
-  heel_type: string;
+  productInfo: productInfo;
   sale: boolean;
 };
 
@@ -27,12 +31,14 @@ export const ProductSchema = new mongoose.Schema({
   product_details: { type: String },
   category: { type: String },
   sizes: { type: [String] },
-  material: { type: String },
-  color: { type: String },
-  insole: { type: String },
-  outsole: { type: String },
-  heel_height: { type: String },
-  heel_type: { type: String },
+  productInfo: {
+    material: { type: String },
+    color: { type: String },
+    insole: { type: String },
+    outsole: { type: String },
+    heel_height: { type: String },
+    heel_type: { type: String },
+  },
   sale: { type: Boolean },
 });
 

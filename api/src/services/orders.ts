@@ -8,11 +8,13 @@ export const createOrderService = async (
 };
 
 export const getOrderByUserIdService = async (
-  orderId: string
-): Promise<OrderDocument> => {
-  const order = await Order.findById(orderId);
+  userId: string
+): Promise<OrderDocument[]> => {
+  const order = await Order.find({ userId: userId }).populate({
+    path: "userId",
+  });
   if (!order) {
-    throw new NotFoundError(`Order ${orderId} not found.`);
+    throw new NotFoundError(`Order with the user id ${userId} not found.`);
   }
   return order;
 };

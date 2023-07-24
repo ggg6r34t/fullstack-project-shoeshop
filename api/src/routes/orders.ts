@@ -4,7 +4,7 @@ import { createOrder, getOrderByUserId } from "../controllers/orders";
 
 const router = Router();
 
-router.post("/:userId", createOrder);
+router.post("/:id", createOrder);
 
 // passport.authenticate("jwt", {session: false}),
 

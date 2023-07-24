@@ -6,6 +6,7 @@ import {
   createProductService,
   updateProductByIdService,
   deleteProductByIdService,
+  getProductByCategoryService,
 } from "../services/products";
 import Product from "../models/Product";
 
@@ -64,6 +65,21 @@ export const getAllProducts = async (
   try {
     const product = await getAllProductsService();
     res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// get product by category
+export const getProductByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const category = req.params.category;
+    const products = await getProductByCategoryService(category);
+    res.status(200).json(products);
   } catch (error) {
     next(error);
   }

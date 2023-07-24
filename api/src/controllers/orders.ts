@@ -12,12 +12,12 @@ export const createOrder = async (
 ) => {
   try {
     const newOrder = new Order({
-      userId: req.params.userId,
-      productList: req.body,
+      userId: req.params.id,
+      productList: req.body.productList,
     });
     const order = await createOrderService(newOrder);
     // response to frontend
-    res.status(201).json(order);
+    res.json(order);
   } catch (error) {
     next(error);
   }
