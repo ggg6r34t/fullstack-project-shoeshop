@@ -15,7 +15,7 @@ type Prop = {
 };
 
 function ProductOrderList({ orderItem }: Prop) {
-  console.log(orderItem.proudctList);
+  console.log(orderItem.productList);
   return (
     <div>
       <Paper
@@ -28,7 +28,7 @@ function ProductOrderList({ orderItem }: Prop) {
           marginBottom: "16px",
         }}
       >
-        {orderItem.proudctList?.map((item) => (
+        {orderItem.productList?.map((item) => (
           <Grid container spacing={2} mb="16px">
             <Grid item>
               <ButtonBase

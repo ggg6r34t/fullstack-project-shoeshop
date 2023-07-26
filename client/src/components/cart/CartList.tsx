@@ -33,9 +33,9 @@ const StyledStack = styled(Stack)`
 function CartList() {
   const cartProducts = useSelector((state: RootState) => state.cart.cartItems);
   const totalAmount = useSelector((state: RootState) => state.cart.totalAmount);
-  const selectedSize = useSelector(
-    (state: RootState) => state.cart.selectedSize
-  );
+  // const selectedSize = useSelector(
+  //   (state: RootState) => state.cart.selectedSize
+  // );
 
   const dispatch = useDispatch();
 
@@ -308,22 +308,22 @@ function CartList() {
                               >
                                 {cartItem.price} €
                               </Typography>
-                              {cartItem.sizes.map(
+                              {/* {cartItem.sizes.map(
                                 (size, index) =>
-                                  selectedSize === size && (
-                                    <Typography
-                                      key={index}
-                                      variant="h4"
-                                      color="#044606"
-                                      fontSize="1.7rem"
-                                      fontWeight="300"
-                                      letterSpacing="0.1rem"
-                                      marginTop="15px"
-                                    >
-                                      size: {cartItem.selectedSize} €
-                                    </Typography>
-                                  )
-                              )}
+                                  selectedSize === size? ( */}
+                              <Typography
+                                // key={index}
+                                variant="h4"
+                                color="#044606"
+                                fontSize="1.7rem"
+                                fontWeight="300"
+                                letterSpacing="0.1rem"
+                                marginTop="15px"
+                              >
+                                size: {cartItem.selectedSize}
+                              </Typography>
+                              {/* )
+                              )} */}
                             </Grid>
 
                             <Grid item xs={4}>

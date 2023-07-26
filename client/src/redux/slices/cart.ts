@@ -36,6 +36,7 @@ const cartSlice = createSlice({
       localStorage.setItem("cartState", JSON.stringify(state));
     },
     removeCartProduct: (state, action: PayloadAction<CartProduct>) => {
+      state.selectedSize = null;
       const id = action.payload._id;
       state.cartItems = state.cartItems.filter(
         (cartItem) => cartItem._id !== id
@@ -82,7 +83,7 @@ const cartSlice = createSlice({
     },
     setSelectedSize: (
       state,
-      action: PayloadAction<{ shoeId: string; size: string | null }>
+      action: PayloadAction<{ shoeId: string; size: string }>
     ) => {
       const { shoeId, size } = action.payload;
       state.selectedSize = size;

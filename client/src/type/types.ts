@@ -35,7 +35,6 @@ export type Product = {
 
 export type CartProduct = Product & {
   cartQuantity: number;
-  total: number;
   selectedSize: string | null;
 };
 
@@ -46,7 +45,7 @@ export type ProductOrder = CartProduct & {
 export type Order = {
   _id: string;
   userId: string;
-  proudctList: ProductOrder[];
+  productList: ProductOrder[];
   createdAt: string;
 };
 
