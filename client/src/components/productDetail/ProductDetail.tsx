@@ -52,7 +52,7 @@ export default function ProductItem() {
   }
 
   const param = useParams();
-  const productId = param.id as string;
+  const productId = param.id as string | undefined;
 
   useEffect(() => {
     if (productId) {

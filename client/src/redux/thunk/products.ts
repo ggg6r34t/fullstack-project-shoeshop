@@ -22,7 +22,7 @@ export function fetchProductDetails(productId: string) {
   };
 }
 
-export function fetchProductByCategory(category: string) {
+export function fetchProductByCategory(category: string | undefined) {
   const productUrl = `${BASE_URL}/products/products/category/${category}`;
   return async (dispact: AppDispatch) => {
     const response = await fetch(productUrl);

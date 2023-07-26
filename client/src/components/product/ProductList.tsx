@@ -18,7 +18,7 @@ export default function ProductList() {
   const fetchDispatch = useDispatch<AppDispatch>();
 
   const param = useParams();
-  const category = param.category as string;
+  const category = param.category as string | undefined;
 
   useEffect(() => {
     fetchDispatch(fetchProductData());
