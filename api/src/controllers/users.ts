@@ -62,6 +62,12 @@ export const userLogin = async (
 
     // verify user password
     const hashedPassword = userData.password;
+
+    // verify that password and hashedPassword are valid
+    if (!password || !hashedPassword) {
+      throw new UnauthorizedError();
+    }
+
     const isCorrectPassword = await bcrypt.compare(password, hashedPassword);
 
     if (!isCorrectPassword) {
