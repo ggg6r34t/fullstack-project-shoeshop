@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
@@ -45,7 +45,6 @@ const StyledButton = styled(Button)`
 `;
 
 function UserDetails() {
-  const dispatch = useDispatch();
   const userDetail = useSelector(
     (state: RootState) => state.users.userInformation
   );
@@ -56,6 +55,14 @@ function UserDetails() {
   });
 
   const [readOnly, setReadOnly] = useState(true);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function handleLogOut() {
+    dispatch(userActions.logOut());
+    navigate("/account/login");
+  }
 
   function setUserFirstName(event: React.ChangeEvent<HTMLInputElement>) {
     setFormData({ ...formData, firstName: event.target.value });
@@ -154,39 +161,45 @@ function UserDetails() {
                     </Typography>
                   </Link>
                 </Box>
-                <Stack
-                  direction="row"
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                <Box
+                  component="div"
+                  sx={{ cursor: "pointer" }}
+                  onClick={handleLogOut}
                 >
-                  <Typography
-                    color="#044606"
-                    fontFamily="Noto Serif"
-                    fontSize="1.2rem"
-                    textTransform="lowercase"
-                    m={2}
+                  <Stack
+                    direction="row"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    Log out
-                  </Typography>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.99723 1H1V13H7M10 10L13 7L10 4M4.33333 6.99723H13"
-                      stroke="#094E5B"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </Stack>
+                    <Typography
+                      color="#044606"
+                      fontFamily="Noto Serif"
+                      fontSize="1.2rem"
+                      textTransform="lowercase"
+                      m={2}
+                    >
+                      Log out
+                    </Typography>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.99723 1H1V13H7M10 10L13 7L10 4M4.33333 6.99723H13"
+                        stroke="#094E5B"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  </Stack>
+                </Box>
               </Paper>
             </Box>
           </Grid>

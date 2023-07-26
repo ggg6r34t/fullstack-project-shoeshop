@@ -1,21 +1,30 @@
 import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import banner from "../../assets/background-faq_1200x.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import ProductOrderList from "../order/ProductOrderList";
 import { useEffect } from "react";
 
 import { fetchOder } from "../../redux/thunk/orders";
+import { userActions } from "../../redux/slices/user";
 
-function UserInfoPage() {
+function AccountPage() {
   const orderList = useSelector((state: RootState) => state.order.orders);
   const userDetail = useSelector(
     (state: RootState) => state.users.userInformation
   );
 
   const fetchDispatch = useDispatch<AppDispatch>();
+  const functionDispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  function handleLogOut() {
+    functionDispatch(userActions.logOut());
+    navigate("/account/login");
+  }
 
   useEffect(() => {
     if (userDetail) {
@@ -77,39 +86,45 @@ function UserInfoPage() {
                     </Typography>
                   </Link>
                 </Box>
-                <Stack
-                  direction="row"
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                <Box
+                  component="div"
+                  sx={{ cursor: "pointer" }}
+                  onClick={handleLogOut}
                 >
-                  <Typography
-                    color="#044606"
-                    fontFamily="Noto Serif"
-                    fontSize="1.2rem"
-                    textTransform="lowercase"
-                    m={2}
+                  <Stack
+                    direction="row"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
-                    Log out
-                  </Typography>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.99723 1H1V13H7M10 10L13 7L10 4M4.33333 6.99723H13"
-                      stroke="#094E5B"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></path>
-                  </svg>
-                </Stack>
+                    <Typography
+                      color="#044606"
+                      fontFamily="Noto Serif"
+                      fontSize="1.2rem"
+                      textTransform="lowercase"
+                      m={2}
+                    >
+                      Log out
+                    </Typography>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 14 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.99723 1H1V13H7M10 10L13 7L10 4M4.33333 6.99723H13"
+                        stroke="#094E5B"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </svg>
+                  </Stack>
+                </Box>
               </Paper>
             </Box>
           </Grid>
@@ -229,4 +244,4 @@ function UserInfoPage() {
   );
 }
 
-export default UserInfoPage;
+export default AccountPage;

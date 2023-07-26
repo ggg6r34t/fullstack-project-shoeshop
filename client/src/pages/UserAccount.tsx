@@ -1,7 +1,7 @@
-import UserInfoPage from "../components/user/UserInfoPage";
+import AccountPage from "../components/user/AccountPage";
 
 function UserAccount() {
-  return <UserInfoPage />;
+  return <AccountPage />;
 }
 
 export default UserAccount;

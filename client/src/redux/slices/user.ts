@@ -27,7 +27,11 @@ const userSlice = createSlice({
       state.isLogin = action.payload;
       localStorage.setItem("userState", JSON.stringify(state));
     },
-    logOut: () => initialState,
+    logOut: (state) => {
+      state.userInformation = null;
+      state.isLogin = false;
+      localStorage.removeItem("userState");
+    },
   },
 });
 
