@@ -11,14 +11,20 @@ export const findUserByEmailService = async (
   userEmail: string
 ): Promise<UserDocument> => {
   // using select query to avoid sending user password to the client
-  // const user = await User.findOne({ email: userEmail }).select("-password");
-  const user = await User.findOne({ email: userEmail });
-  if (!user) {
-    throw new NotFoundError(
-      `Cannot find any user with the email ${userEmail}.`
-    );
+  const foundUser = await User.findOne({ email: userEmail }).select(
+    "-password"
+  );
+  // const user = await User.findOne({ email: userEmail });
+  try {
+    if (!foundUser) {
+      throw new NotFoundError(
+        `Cannot find any user with the email ${userEmail}.`
+      );
+    }
+    return foundUser;
+  } catch (error) {
+    throw error;
   }
-  return user;
 };
 
 export const updateUserInfoByIdService = async (
@@ -28,8 +34,12 @@ export const updateUserInfoByIdService = async (
   const user = await User.findByIdAndUpdate(userId, newUserInformation, {
     new: true,
   });
-  if (!user) {
-    throw new NotFoundError(`User ${userId} not found`);
+  try {
+    if (!user) {
+      throw new NotFoundError(`User ${userId} not found`);
+    }
+    return user;
+  } catch (error) {
+    throw error;
   }
-  return user;
 };
