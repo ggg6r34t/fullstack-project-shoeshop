@@ -3,9 +3,8 @@ import { productDetailsActions } from "../slices/productDetail";
 import { productActions } from "../slices/products";
 import { AppDispatch } from "../store";
 
-const productUrl = `${BASE_URL}/products/`;
-
 export function fetchProductData() {
+  const productUrl = `${BASE_URL}/products/`;
   return async (dispact: AppDispatch) => {
     const response = await fetch(productUrl);
     const productData = await response.json();
