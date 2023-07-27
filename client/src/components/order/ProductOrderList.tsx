@@ -15,21 +15,20 @@ type Prop = {
 };
 
 function ProductOrderList({ orderItem }: Prop) {
-  console.log(orderItem.productList);
   return (
     <div>
       <Paper
         elevation={0}
         sx={{
-          maxWidth: 355,
+          minWidth: 425,
           background: "#fffef1",
           flexGrow: 1,
           overflow: "hidden",
-          marginBottom: "16px",
+          margin: "16px",
         }}
       >
         {orderItem.productList?.map((item) => (
-          <Grid container spacing={2} mb="16px">
+          <Grid container spacing={2}>
             <Grid item>
               <ButtonBase
                 sx={{
@@ -49,6 +48,7 @@ function ProductOrderList({ orderItem }: Prop) {
               <Grid item xs>
                 <Stack direction="column">
                   <Typography
+                    color="#044606"
                     fontWeight={"bold"}
                     variant="subtitle1"
                     component="div"
@@ -56,17 +56,31 @@ function ProductOrderList({ orderItem }: Prop) {
                     {item.title}
                   </Typography>
                   <Typography
+                    color="#044606"
                     fontWeight={"bold"}
                     variant="subtitle1"
                     component="div"
                   >
                     {item.selectedSize}
                   </Typography>
+                  <Typography
+                    color="#044606"
+                    fontWeight={"bold"}
+                    variant="subtitle1"
+                    component="div"
+                  >
+                    x{item.cartQuantity}
+                  </Typography>
                 </Stack>
               </Grid>
 
-              <Grid display="flex" alignItems="center" justifyContent="center">
-                <Typography variant="subtitle1" component="div">
+              <Grid
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                marginRight="16px"
+              >
+                <Typography component="div" variant="subtitle1" color="#044606">
                   € {item.price}
                 </Typography>
               </Grid>

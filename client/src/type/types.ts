@@ -7,13 +7,6 @@ export type User = {
   token: string;
 };
 
-export type UserCreateAccountInfo = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-};
-
 export type Product = {
   _id: string;
   title: string;
@@ -39,15 +32,9 @@ export type CartProduct = Product & {
   selectedSize: string | null;
 };
 
-export type ProductOrder = CartProduct & {
-  quantity: number;
-};
-
 export type Order = {
   _id: string;
   userId: string;
-  productList: ProductOrder[];
+  productList: CartProduct[];
   createdAt: string;
 };
-
-export type SortOrder = "asc" | "desc";

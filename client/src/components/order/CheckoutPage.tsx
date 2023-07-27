@@ -148,16 +148,12 @@ function OrderPage() {
     const url = `${BASE_URL}/orders/${userDetail?._id}`;
 
     axios
-      .post(
-        url,
-        { proudctList: cartProduct },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(url, cartProduct, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         if (res.status === 200) {
           alert("Thanks for shopping with us.");
