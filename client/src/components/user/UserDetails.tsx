@@ -82,7 +82,7 @@ function UserDetails() {
   }
 
   function onSubmitHandler() {
-    const token = localStorage.getItem("userToken");
+    const token = userDetail?.token;
     const url = `${BASE_URL}/account/${userDetail?._id}`;
 
     axios

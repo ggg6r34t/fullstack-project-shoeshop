@@ -144,7 +144,7 @@ function OrderPage() {
   const dispatch = useDispatch();
 
   function handleCheckout() {
-    const token = localStorage.getItem("userToken");
+    const token = userDetail?.token;
     const url = `${BASE_URL}/orders/${userDetail?._id}`;
 
     axios

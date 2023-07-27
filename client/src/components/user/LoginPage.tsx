@@ -15,6 +15,7 @@ import { theme } from "../theme/theme";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/slices/user";
 import { BASE_URL } from "../../api/api";
+import { User } from "../../type/types";
 
 const StyledTextField = styled(TextField)`
   & .MuiFormLabel-root {
@@ -67,12 +68,16 @@ function LoginPage() {
       .post(`${BASE_URL}/account/login`, userInput)
       .then((res) => {
         if (res.status === 200) {
-          // store the toekn securely (e.g., in local storage or cookie)
+          // store the userData and userToken securely (e.g., in local storage or cookie)
+          const user = res.data.userData;
           const userToken = res.data.token;
-          localStorage.setItem("userToken", userToken);
 
           // save userData to redux
-          dispatch(userActions.setUserData(res.data.userData));
+          const userWithData: User = {
+            ...user,
+            token: userToken,
+          };
+          dispatch(userActions.setUserData(userWithData));
 
           // set user login state
           dispatch(userActions.userLogin(true));

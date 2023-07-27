@@ -74,7 +74,7 @@ const cartSlice = createSlice({
         0
       );
 
-      // Round the totalAmount to 2 decimal places
+      // round the totalAmount to 2 decimal places
       const roundedTotalAmount = Number(totalAmount.toFixed(2));
 
       state.totalAmount = roundedTotalAmount;

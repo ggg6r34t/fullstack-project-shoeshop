@@ -4,6 +4,7 @@ export type User = {
   lastName: string;
   email: string;
   password: string;
+  token: string;
 };
 
 export type UserCreateAccountInfo = {
