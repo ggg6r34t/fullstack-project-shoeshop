@@ -631,6 +631,13 @@ function OrderPage() {
                         >
                           {orderItem.selectedSize}
                         </Typography>
+                        <Typography
+                          fontWeight={"bold"}
+                          variant="subtitle1"
+                          component="div"
+                        >
+                          x{orderItem.cartQuantity}
+                        </Typography>
                       </Stack>
                     </Grid>
 

@@ -83,6 +83,7 @@ const cartSlice = createSlice({
 
     checkOut: (state) => {
       state.cartList = [];
+      state.selectedSize = null;
       localStorage.removeItem("cartState");
     },
     setSelectedSize: (
