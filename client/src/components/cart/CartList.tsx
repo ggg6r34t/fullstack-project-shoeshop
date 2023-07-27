@@ -37,6 +37,7 @@ function CartList() {
   //   (state: RootState) => state.cart.selectedSize
   // );
 
+  console.log(cartProducts);
   const dispatch = useDispatch();
 
   let cartItemCount: number;

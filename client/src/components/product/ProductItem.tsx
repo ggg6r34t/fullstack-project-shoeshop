@@ -43,7 +43,7 @@ export default function ProductItem({ product }: Prop) {
   const dispatch = useDispatch();
 
   function addToCart(cartProd: Product) {
-    dispatch(cartActions.addCartProduct(cartProd));
+    dispatch(cartActions.addToCart(cartProd));
     dispatch(cartActions.getTotalQuantity());
   }
 

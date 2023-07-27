@@ -6,7 +6,7 @@ import { CartProduct } from "../../type/types";
 type CartState = {
   cartList: CartProduct[];
   totalAmount: number;
-  selectedSize: string | null;
+  isSelectedSize: string | null;
 };
 
 const storedCartState = localStorage.getItem("cartState");
@@ -15,28 +15,32 @@ const initialState: CartState = storedCartState
   : {
       cartList: [],
       totalAmount: 0,
-      selectedSize: null,
+      iSelectedSize: null,
     };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addCartProduct: (state, action) => {
+    addToCart: (state, action) => {
       const itemInCart = state.cartList.find(
-        (item) => item._id === action.payload.id
+        (item) => item._id === action.payload._id
       );
 
       if (itemInCart) {
         itemInCart.cartQuantity += 1;
       } else {
-        const cartProduct = { ...action.payload, cartQuantity: 1 };
+        const cartProduct = {
+          ...action.payload,
+          cartQuantity: 1,
+          selectedSize: null,
+        };
         state.cartList.push(cartProduct);
       }
       localStorage.setItem("cartState", JSON.stringify(state));
     },
     removeCartProduct: (state, action: PayloadAction<CartProduct>) => {
-      state.selectedSize = null;
+      state.isSelectedSize = null;
       const id = action.payload._id;
       state.cartList = state.cartList.filter((cartItem) => cartItem._id !== id);
       localStorage.setItem("cartState", JSON.stringify(state));
@@ -77,15 +81,24 @@ const cartSlice = createSlice({
     },
     setSelectedSize: (
       state,
-      action: PayloadAction<{ shoeId: string; size: string }>
+      action: PayloadAction<{ shoeId: string; size: string | null }>
     ) => {
       const { shoeId, size } = action.payload;
-      state.selectedSize = size;
-      const cartItemIndex = state.cartList.find((item) => item._id === shoeId);
-      if (cartItemIndex) {
-        cartItemIndex.selectedSize = size;
-        localStorage.setItem("cartState", JSON.stringify(state));
+      state.isSelectedSize = size;
+      const cartItemIndex = state.cartList.findIndex(
+        (item) => item._id === shoeId
+      );
+      if (cartItemIndex !== -1) {
+        state.cartList[cartItemIndex].selectedSize = size;
       }
+      // else {
+      //   const newCartItem: CartProduct = {
+      //     _id: shoeId,
+      //     selectedSize: size,
+      //   };
+      //   state.cartList.push(newCartItem);
+      // }
+      localStorage.setItem("cartState", JSON.stringify(state));
     },
   },
 });

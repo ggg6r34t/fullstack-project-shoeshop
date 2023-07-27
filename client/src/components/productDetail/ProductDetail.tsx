@@ -32,8 +32,8 @@ export default function ProductItem() {
   const productDetail = useSelector(
     (state: RootState) => state.productDetail.productDetail
   );
-  const selectedSize = useSelector(
-    (state: RootState) => state.cart.selectedSize
+  const isSelectedSize = useSelector(
+    (state: RootState) => state.cart.isSelectedSize
   );
   const isLoading = useSelector(
     (state: RootState) => state.productDetail.isLoading
@@ -47,7 +47,7 @@ export default function ProductItem() {
   };
 
   function addToCart(cartProd: Product) {
-    functionDispatch(cartActions.addCartProduct(cartProd));
+    functionDispatch(cartActions.addToCart(cartProd));
     functionDispatch(cartActions.getTotalQuantity());
   }
 
@@ -196,7 +196,7 @@ export default function ProductItem() {
                           height: "38px",
                           borderRadius: "12.5px",
                           border:
-                            selectedSize === size
+                            isSelectedSize === size
                               ? "2px solid #044606"
                               : "none",
                         }}

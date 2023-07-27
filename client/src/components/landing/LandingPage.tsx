@@ -69,7 +69,7 @@ function LandingPage() {
   }, [fetchDispatch]);
 
   function addToCart(cartProd: Product) {
-    dispatch(cartActions.addCartProduct(cartProd));
+    dispatch(cartActions.addToCart(cartProd));
     dispatch(cartActions.getTotalQuantity());
   }
 

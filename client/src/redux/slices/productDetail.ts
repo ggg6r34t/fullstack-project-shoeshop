@@ -3,17 +3,17 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { Product } from "../../type/types";
 
-type ProductDetailsState = {
+type ProductDetailState = {
   productDetail: Product | null;
   isLoading: boolean;
 };
 
-const initialState: ProductDetailsState = {
+const initialState: ProductDetailState = {
   productDetail: null,
   isLoading: true,
 };
 
-const searchSlice = createSlice({
+const productDetailSlice = createSlice({
   name: "productDetail",
   initialState,
   reducers: {
@@ -24,6 +24,6 @@ const searchSlice = createSlice({
   },
 });
 
-export const productDetailsActions = searchSlice.actions;
-const productDetailReducer = searchSlice.reducer;
+export const productDetailsActions = productDetailSlice.actions;
+const productDetailReducer = productDetailSlice.reducer;
 export default productDetailReducer;
