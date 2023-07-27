@@ -17,8 +17,8 @@ const ProductOrderSchema = new mongoose.Schema({
   title: { type: String },
   price: { type: Number },
   image: { type: String },
-  size: { type: String },
-  quantity: { type: Number },
+  selectedSize: { type: String },
+  cartQuantity: { type: Number },
 });
 
 // type from database

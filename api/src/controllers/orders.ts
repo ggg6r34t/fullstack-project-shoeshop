@@ -13,7 +13,8 @@ export const createOrder = async (
   try {
     const newOrder = new Order({
       userId: req.params.id,
-      productList: req.body.productList,
+      productList: req.body,
+      // productList: req.body.productList,
     });
     const order = await createOrderService(newOrder);
     // response to frontend
