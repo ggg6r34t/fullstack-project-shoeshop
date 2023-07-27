@@ -226,8 +226,12 @@ function CartList() {
                     margin: "auto 2rem",
                   }}
                 >
-                  {cartProducts?.map((cartItem) => (
-                    <Card elevation={0} sx={{ marginBottom: "20px" }}>
+                  {cartProducts?.map((cartItem, index) => (
+                    <Card
+                      elevation={0}
+                      key={index}
+                      sx={{ marginBottom: "20px" }}
+                    >
                       <Box
                         component="div"
                         sx={{

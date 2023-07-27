@@ -33,7 +33,7 @@ export default function ProductItem() {
     (state: RootState) => state.productDetail.productDetail
   );
   const isSelectedSize = useSelector(
-    (state: RootState) => state.cart.isSelectedSize
+    (state: RootState) => state.cart.selectedSize
   );
   const isLoading = useSelector(
     (state: RootState) => state.productDetail.isLoading

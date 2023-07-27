@@ -6,7 +6,7 @@ import { CartProduct } from "../../type/types";
 type CartState = {
   cartList: CartProduct[];
   totalAmount: number;
-  isSelectedSize: string | null;
+  selectedSize: string | null;
 };
 
 const storedCartState = localStorage.getItem("cartState");
@@ -33,14 +33,14 @@ const cartSlice = createSlice({
         const cartProduct = {
           ...action.payload,
           cartQuantity: 1,
-          selectedSize: null,
+          selectedSize: state.selectedSize,
         };
         state.cartList.push(cartProduct);
       }
       localStorage.setItem("cartState", JSON.stringify(state));
     },
     removeCartProduct: (state, action: PayloadAction<CartProduct>) => {
-      state.isSelectedSize = null;
+      state.selectedSize = null;
       const id = action.payload._id;
       state.cartList = state.cartList.filter((cartItem) => cartItem._id !== id);
       localStorage.setItem("cartState", JSON.stringify(state));
@@ -58,7 +58,7 @@ const cartSlice = createSlice({
       const id = action.payload._id;
       const cartItemIndex = state.cartList.findIndex((item) => item._id === id);
 
-      if (cartItemIndex) {
+      if (cartItemIndex >= 0) {
         if (state.cartList[cartItemIndex].cartQuantity > 1) {
           state.cartList[cartItemIndex].cartQuantity -= 1;
         } else {
@@ -67,14 +67,20 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cartState", JSON.stringify(state));
     },
+
     getTotalQuantity: (state) => {
       const totalAmount = state.cartList.reduce(
         (amount, cartItem) => amount + cartItem.price * cartItem.cartQuantity,
         0
       );
-      state.totalAmount = totalAmount;
+
+      // Round the totalAmount to 2 decimal places
+      const roundedTotalAmount = Number(totalAmount.toFixed(2));
+
+      state.totalAmount = roundedTotalAmount;
       localStorage.setItem("cartState", JSON.stringify(state));
     },
+
     checkOut: (state) => {
       state.cartList = [];
       localStorage.removeItem("cartState");
@@ -84,7 +90,7 @@ const cartSlice = createSlice({
       action: PayloadAction<{ shoeId: string; size: string | null }>
     ) => {
       const { shoeId, size } = action.payload;
-      state.isSelectedSize = size;
+      state.selectedSize = size;
       const cartItemIndex = state.cartList.findIndex(
         (item) => item._id === shoeId
       );
