@@ -34,7 +34,7 @@ const StyledCartBadge = styled(Badge)`
 `;
 
 export default function NavBar() {
-  const cartProducts = useSelector((state: RootState) => state.cart.cartItems);
+  const cartProducts = useSelector((state: RootState) => state.cart.cartList);
   const isLogin = useSelector((state: RootState) => state.users.isLogin);
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
 

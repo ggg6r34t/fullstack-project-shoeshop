@@ -131,7 +131,7 @@ const countries = [
 ];
 
 function OrderPage() {
-  const cartProduct = useSelector((state: RootState) => state.cart.cartItems);
+  const cartProduct = useSelector((state: RootState) => state.cart.cartList);
   const totalAmount = useSelector((state: RootState) => state.cart.totalAmount);
 
   const isLogin = useSelector((state: RootState) => state.users.isLogin);
