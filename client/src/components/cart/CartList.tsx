@@ -33,11 +33,7 @@ const StyledStack = styled(Stack)`
 function CartList() {
   const cartProducts = useSelector((state: RootState) => state.cart.cartList);
   const totalAmount = useSelector((state: RootState) => state.cart.totalAmount);
-  // const selectedSize = useSelector(
-  //   (state: RootState) => state.cart.selectedSize
-  // );
 
-  console.log(cartProducts);
   const dispatch = useDispatch();
 
   let cartItemCount: number;
