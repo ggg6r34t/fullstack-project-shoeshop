@@ -24,7 +24,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const itemInCart = state.cartList.find(
-        (item) => item._id === action.payload._id
+        (item) => item._id === `${action.payload.id}-${state.selectedSize}`
       );
 
       if (itemInCart) {
@@ -34,6 +34,7 @@ const cartSlice = createSlice({
           ...action.payload,
           cartQuantity: 1,
           selectedSize: state.selectedSize,
+          _id: `${action.payload.id}-${state.selectedSize}`,
         };
         state.cartList.push(cartProduct);
       }
