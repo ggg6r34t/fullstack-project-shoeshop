@@ -21,15 +21,15 @@ function ProductOrderList({ orderItem }: Prop) {
         elevation={0}
         sx={{
           minWidth: 425,
-          background: "#fffef1",
+          // background: "#fffef1",
           flexGrow: 1,
           overflow: "hidden",
-          margin: "16px",
+          marginLeft: "16px",
         }}
       >
         {orderItem.productList?.map((item) => (
           <Grid container spacing={2}>
-            <Grid item>
+            <Grid item p={2}>
               <ButtonBase
                 sx={{
                   width: 85,
@@ -44,7 +44,7 @@ function ProductOrderList({ orderItem }: Prop) {
                 <Img src={item.image} alt={item.title} />
               </ButtonBase>
             </Grid>
-            <Grid item xs={12} sm container>
+            <Grid item xs={12} sm container p={2}>
               <Grid item xs>
                 <Stack direction="column">
                   <Typography

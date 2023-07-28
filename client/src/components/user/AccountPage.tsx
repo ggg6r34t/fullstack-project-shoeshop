@@ -66,7 +66,7 @@ function AccountPage() {
                       fontFamily="Noto Serif"
                       fontSize="1.2rem"
                       textTransform="lowercase"
-                      m={2}
+                      margin={2}
                     >
                       orders
                     </Typography>
@@ -146,6 +146,7 @@ function AccountPage() {
                       fontFamily="Noto Serif"
                       fontSize="4rem"
                       textTransform="lowercase"
+                      marginBottom="35px"
                     >
                       Orders
                     </Typography>
