@@ -22,15 +22,8 @@ Before you begin, ensure you have met the following requirements:
 
 ## Getting Started
 
-1. Clone the repository:
-
    ```shell
    git clone https://github.com/ggg6r34t/shoe-ecommerce-website.git
-   ```
-
-2. Change to the project directory:
-
-   ```shell
    cd shoe-ecommerce-website
    ```
 
