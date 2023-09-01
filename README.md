@@ -25,7 +25,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```shell
-   git clone https://github.com/your-username/ShoeShop.git
+   git clone https://github.com/ggg6r34t/shoe-ecommerce-website.git
    ```
 
 2. Change to the project directory:
@@ -37,7 +37,7 @@ Before you begin, ensure you have met the following requirements:
 ### Backend dependencies:
 
    ```shell
-   cd backend
+   cd api
    npm install
    npm start
    ```
@@ -47,6 +47,7 @@ Set up the environment variables by creating a `.env` file in the `backend` dire
 ### Frontend dependencies:
 
    ```shell
+   cd client
    npm install
    npm start
    ```
