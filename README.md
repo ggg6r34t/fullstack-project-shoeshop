@@ -31,7 +31,7 @@ Before you begin, ensure you have met the following requirements:
 2. Change to the project directory:
 
    ```shell
-   cd ShoeShop
+   cd shoe-ecommerce-website
    ```
 
 ### Backend dependencies:
